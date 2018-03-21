@@ -16,6 +16,10 @@ export default {
 
 <style lang="scss" scoped>
 .mu-appbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  left:0;
   background: #1c6132;
 }
 .logo{

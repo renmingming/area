@@ -6,7 +6,10 @@ import router from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 
+import filters from '@/filters/index.js'
+
 Vue.use(MuseUI)
+Vue.use(filters)
 
 Vue.config.productionTip = false
 
