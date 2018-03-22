@@ -22,6 +22,12 @@ export default {
 body{
   overflow-y:auto;
 }
+.main-content{
+  padding-top:64px;
+  height:100vh;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

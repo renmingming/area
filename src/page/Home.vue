@@ -14,20 +14,22 @@
         <mu-list-item v-for="item in tabData" :key="item.id">
           <mu-avatar slot="left" :src="item.author.avatar_url" :size="40"></mu-avatar>
           <div class="item-list-info">
-            <div class="title">
-              <div v-if="activeTab==='all' || activeTab==='good'" class="title-tip">
-                <span v-if="item.top" class="top tip">置顶</span>
-                <span v-else-if="item.good" class="good tip">精华</span>
-                <span v-else class="category tip">{{item.tab | tab}}</span>
+            <router-link :to="{name: 'content', params: {id: item.id}}">
+              <div class="title">
+                <div v-if="activeTab==='all' || activeTab==='good'" class="title-tip">
+                  <span v-if="item.top" class="top tip">置顶</span>
+                  <span v-else-if="item.good" class="good tip">精华</span>
+                  <span v-else class="category tip">{{item.tab | tab}}</span>
+                </div>
+                {{item.title}}
               </div>
-              {{item.title}}
-            </div>
-            <div class="info">
-              <span class="author-name">{{item.author.loginname}}</span>
-              <span class="count reply">回复：{{item.reply_count}}</span>
-              <span class="count visit">访问量：{{item.visit_count}}</span>
-              <span class="time count">{{item.last_reply_at | time_ago}}</span>
-            </div>
+              <div class="info">
+                <span class="author-name">{{item.author.loginname}}</span>
+                <span class="count reply">回复：{{item.reply_count}}</span>
+                <span class="count visit">访问量：{{item.visit_count}}</span>
+                <span class="time count">{{item.last_reply_at | time_ago}}</span>
+              </div>
+            </router-link>
           </div>
         </mu-list-item>
       </mu-list>
@@ -44,7 +46,7 @@ export default {
     return {
       page: 1,
       activeTab: 'all',
-      url: 'https://www.vue-js.com/api/v1/topics',
+      url: this.AppConfig.host + '/v1/topics',
       loading: false,
       refreshing: false,
       scroller: null,
@@ -69,6 +71,7 @@ export default {
       this.pageGetState = true
       this.loadingText = '正在加载...'
       this.page = 1
+      this.tabData = []
       this.refresh()
     },
     // 获取数据
@@ -132,10 +135,6 @@ export default {
 
 <style lang="scss" scoped>
 .main-content{
-  padding-top:64px;
-  height:100vh;
-  overflow:auto;
-  -webkit-overflow-scrolling: touch;
   .mu-tabs{
     position:fixed;
     top:56px;
@@ -144,6 +143,7 @@ export default {
     padding-top:48px;
     .item-list-info{
       .title{
+        color:#333;
         .title-tip{
           display:inline-block;
         }
@@ -169,6 +169,7 @@ export default {
         padding-top:5px;
         .author-name{
           padding-right:20px;
+          color:#666;
         }
         .count{
           padding-right:10px;
