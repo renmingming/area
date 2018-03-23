@@ -8,10 +8,10 @@
           {{contentData.title}}
         </div>
         <div class="info">
-          • 发布与{{contentData.create_at | time_ago}}
-          • 作者{{contentData.author.loginname}}
-          • {{contentData.visit_count}}次浏览
-          • 来自{{contentData.tab | tab}}
+          <span>• 发布与{{contentData.create_at | time_ago}} </span>
+          <span>• 作者{{contentData.author.loginname}} </span>
+          <span>• {{contentData.visit_count}}次浏览 </span>
+          <span>• 来自{{contentData.tab | tab}}</span>
         </div>
       </div>
       <div class="inner-content">
@@ -38,6 +38,7 @@ export default {
   methods: {
     getData (val) {
       let self = this
+      console.log(this.$route.path)
       api.App_get(this.url + val).then((res) => {
         console.log(res.data)
         self.contentData = res.data
@@ -51,7 +52,36 @@ export default {
 <style lang="scss" scoped>
   .main-content{
     .content{
-      padding:15px 20px;
+      padding:30px 20px 15px;
+      .head{
+        padding-bottom:12px;
+        border-bottom:1px solid #e5e5e5;
+        .title{
+          font-size:18px;
+          font-weight:bold;
+          margin-bottom:3px;
+          color:#333;
+        }
+        .info{
+          span{
+            dipslay:inline-block;
+            color:#666;
+            padding-right:5px;
+          }
+        }
+        .tip{
+          display:inline-block;
+          vertical-align:top;
+          padding:1px 5px;
+          border-radius:3px;
+          color:#fff;
+          font-size:12px;
+          background:#369219;
+        }
+        .good{
+          background:#7e57c2;
+        }
+      }
     }
   }
 </style>

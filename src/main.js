@@ -6,6 +6,7 @@ import router from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 
+import store from '@/store/index'
 import filters from '@/filters/index.js'
 import AppConfig from '@/config.js'
 
@@ -19,6 +20,7 @@ Vue.prototype.AppConfig = AppConfig
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

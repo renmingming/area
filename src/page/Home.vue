@@ -46,7 +46,8 @@ export default {
     return {
       page: 1,
       activeTab: 'all',
-      url: this.AppConfig.host + '/v1/topics',
+      title: '',
+      url: this.$store.state.apiUrl + 'topics',
       loading: false,
       refreshing: false,
       scroller: null,
