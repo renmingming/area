@@ -29,9 +29,23 @@ export function fetch (url, params) {
       })
   })
 }
+export function fetchPost (url, params) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, params)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
 
 export default {
   App_get (url, params) {
     return fetch(url, params)
+  },
+  App_post (url, params) {
+    return fetchPost(url, params)
   }
 }

@@ -12,7 +12,10 @@
       <mu-refresh-control :refreshing="refreshing" :trigger="scroller" @refresh="refresh" />
       <mu-list>
         <mu-list-item v-for="item in tabData" :key="item.id">
-          <mu-avatar slot="left" :src="item.author.avatar_url" :size="40"></mu-avatar>
+          <!-- <mu-avatar  :src="item.author.avatar_url" :size="40"></mu-avatar> -->
+          <router-link :to="{name: 'people', params: {username: item.author.loginname}}"  slot="left">
+            <mu-avatar  :src="item.author.avatar_url" :size="40"></mu-avatar>
+          </router-link>
           <div class="item-list-info">
             <router-link :to="{name: 'content', params: {id: item.id}}">
               <div class="title">

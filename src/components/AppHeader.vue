@@ -2,8 +2,8 @@
   <mu-appbar :title="title">
     <img src="../assets/logo.png" class="logo" slot="left">
     <mu-icon-menu icon="more_vert" slot="right">
-      <mu-menu-item title="菜单 1"/>
-      <mu-menu-item title="菜单 2"/>
+      <mu-menu-item to="/login" title="登陆"/>
+      <mu-menu-item title="注册"/>
     </mu-icon-menu>
   </mu-appbar>
 </template>
@@ -31,6 +31,9 @@ export default {
   width:100%;
   left:0;
   background: #1c6132;
+  .mu-appbar-title{
+    text-align: center;
+  }
 }
 .logo{
   height: 40px;

@@ -3,15 +3,18 @@
     <!-- <img src="./assets/logo.png"> -->
     <app-header></app-header>
     <router-view/>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import AppHeader from './components/AppHeader'
+import AppFooter from './components/AppFooter'
 export default {
   name: 'App',
   components: {
-    AppHeader
+    AppHeader,
+    AppFooter
   }
 }
 </script>
@@ -21,9 +24,12 @@ export default {
 @import 'http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css';
 body{
   overflow-y:auto;
+  font-size:16px;
 }
 .main-content{
+  position:relative;
   padding-top:64px;
+  padding-bottom:66px;
   height:100vh;
   overflow:auto;
   -webkit-overflow-scrolling: touch;
