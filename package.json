@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "marked": "^0.3.19",
     "muse-ui": "^2.1.0",
     "timeago.js": "^3.0.2",
     "vue": "^2.5.2",

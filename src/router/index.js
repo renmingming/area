@@ -7,6 +7,7 @@ const Content = () => import('@/page/Content')
 // import Login from '@/page/Login'
 const Login = () => import('@/page/Login')
 const My = () => import('@/page/My')
+const Publish = () => import('@/page/Publish')
 
 Vue.use(Router)
 
@@ -39,6 +40,14 @@ const route = new Router({
       path: '/people',
       name: 'people',
       component: My
+    },
+    {
+      path: '/publish',
+      name: 'publish',
+      component: Publish,
+      meta: {
+        requiresAuth: true
+      }
     }
   ],
   scrollBehavior (to, from, savedPosition) {
