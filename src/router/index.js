@@ -10,7 +10,7 @@ const My = () => import('@/page/My')
 
 Vue.use(Router)
 
-export default new Router({
+const route = new Router({
   routes: [
     {
       path: '/',
@@ -30,7 +30,10 @@ export default new Router({
     {
       path: '/my',
       name: 'my',
-      component: My
+      component: My,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/people',
@@ -49,3 +52,23 @@ export default new Router({
     }
   }
 })
+
+route.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    // some检测数组中的元素是否满足指定条件
+    let token = localStorage.getItem('accesstoken')
+    if (token) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        // 将跳转的路由path作为参数，登录成功后跳转到该路由
+        query: {redirect: to.fullPath}
+      })
+    }
+  } else {
+    next()
+  }
+})
+
+export default route

@@ -1,21 +1,33 @@
 <template>
   <div class="main-content">
+  <!-- 个人信息 -->
     <mu-appbar>
       <mu-avatar slot="left" :src="userInfo.avatar_url" :size="60"></mu-avatar>
       <div class="userInfo">
-        <div class="name list">{{userInfo.loginname}}</div>
+        <div class="name list">
+          {{userInfo.loginname}}&nbsp;&nbsp;&nbsp;&nbsp;
+          <a class="github" :href="github">@{{userInfo.githubUsername}}</a>
+        </div>
         <div class="score list">积分：{{userInfo.score}}</div>
         <div class="createTime list">注册时间：{{userInfo.create_at | time_ago}}</div>
       </div>
     </mu-appbar>
+    <!-- 最近话题 -->
     <mu-list-item title="最近话题" toggleNested :open="false">
       <mu-icon slot="left" value="drafts"/>
+      <mu-badge :content="userInfo.recent_topics.length" slot="after"/>
       <mu-list-item v-for="item in userInfo.recent_topics" :key="item.id" slot="nested" :title="item.title"></mu-list-item>
     </mu-list-item>
+    <!-- 最近回复 -->
     <mu-list-item title="最近回复" toggleNested :open="false">
       <mu-icon slot="left" value="drafts"/>
+      <mu-badge :content="userInfo.recent_replies.length" slot="after"/>
       <mu-list-item v-for="item in userInfo.recent_replies" :key="item.id" slot="nested" :title="item.title"></mu-list-item>
     </mu-list-item>
+    <!-- 退出按钮 -->
+    <div class="btn" v-show="quitShowHide">
+      <mu-raised-button label="退出" @click="cleanQuit" class="demo-raised-button"/>
+    </div>
   </div>
 </template>
 
@@ -26,6 +38,22 @@ export default {
   data () {
     return {
       userInfo: null
+    }
+  },
+  computed: {
+    github () {
+      return 'https://github.com/' + this.userInfo.githubUsername
+    },
+    quitShowHide () {
+      let name = localStorage.getItem('loginname')
+      let paramsName = this.$route.params.username
+      console.log(name)
+      console.log(paramsName)
+      if (name === paramsName || paramsName === '' || paramsName === null || paramsName === undefined) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   created () {
@@ -43,11 +71,24 @@ export default {
       } else {
         userName = localStorage.getItem('loginname')
       }
+      if (userName === '' || userName === undefined || userName === null) {
+        this.$router.push({
+          'path': '/login'
+        })
+      }
       api.App_get(this.$store.state.apiUrl + '/user/' + userName)
         .then((res) => {
-          console.log(res)
+          console.log(this.quitShowHide)
           self.userInfo = res.data
         })
+    },
+    cleanQuit () {
+      localStorage.removeItem('loginname')
+      localStorage.removeItem('accesstoken')
+      localStorage.removeItem('user_id')
+      this.$router.push({
+        'path': '/login'
+      })
     }
   }
 }
@@ -74,5 +115,13 @@ export default {
       margin-bottom:0.2rem;
       font-weight:600;
     }
+    .github{
+      font-size:0.8rem;
+      color:#dfdfdf;
+    }
+  }
+  .btn{
+    margin:2rem 0;
+    text-align:center;
   }
 </style>
