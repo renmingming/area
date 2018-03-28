@@ -3,7 +3,7 @@
     <img src="../assets/logo.png" class="logo" slot="left">
     <mu-icon-menu icon="more_vert" slot="right">
       <mu-menu-item to="/login" v-if="!accesstoken" title="登陆"/>
-      <mu-menu-item  v-if="!accesstoken" title="注册"/>
+      <mu-menu-item @click="toPageGetToken"  v-if="!accesstoken" title="注册"/>
       <mu-menu-item to="/publish" title="发布"/>
       <mu-menu-item v-if="accesstoken" @click="cleanQuit" title="退出"/>
     </mu-icon-menu>
@@ -42,6 +42,9 @@ export default {
       this.$router.push({
         'path': '/login'
       })
+    },
+    toPageGetToken () {
+      window.location.href = 'https://www.vue-js.com/'
     }
   },
   watch: {
@@ -56,6 +59,7 @@ export default {
   top:0;
   width:100%;
   left:0;
+  z-index:999;
   background: #1c6132;
   .mu-appbar-title{
     text-align: center;

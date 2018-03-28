@@ -13,6 +13,8 @@
           <span>• {{contentData.visit_count}}次浏览 </span>
           <span>• 来自{{contentData.tab | tab}}</span>
         </div>
+        <!-- 收藏功能 -->
+        <mu-checkbox v-if="accesstoken" :label="collectText" class="demo-checkbox" v-model="collect" uncheckIcon="favorite_border" checkedIcon="favorite"/>
       </div>
       <div class="inner-content">
         <div v-html="contentData.content"></div>
@@ -29,11 +31,26 @@ export default {
     return {
       id: this.$route.params.id, // id
       url: this.AppConfig.host + '/v1/topic/', // 请求连接
-      contentData: {}
+      contentData: {},
+      collect: false,
+      accesstoken: ''
     }
   },
   created () {
+    this.accesstoken = window.localStorage.getItem('accesstoken')
     this.getData(this.id)
+  },
+  computed: {
+    collectText () {
+      if (this.collect) {
+        this.addCollect()
+        return '取消收藏'
+      } else {
+        return '收藏'
+      }
+    }
+  },
+  watch: {
   },
   methods: {
     getData (val) {
@@ -43,6 +60,16 @@ export default {
         console.log(res.data)
         self.contentData = res.data
         console.log(self.contentData)
+      })
+    },
+    removeCollect () {},
+    addCollect () {
+      let self = this
+      api.App_post(this.url + 'collect', {
+        accesstoken: self.accesstoken,
+        topic_id: self.id
+      }).then((res) => {
+        console.log(res)
       })
     }
   }
