@@ -38,6 +38,7 @@ export default {
   },
   created () {
     this.accesstoken = window.localStorage.getItem('accesstoken')
+    this.setCollect()
     this.getData(this.id)
   },
   computed: {
@@ -46,30 +47,50 @@ export default {
         this.addCollect()
         return '取消收藏'
       } else {
+        this.removeCollect()
         return '收藏'
       }
     }
   },
   watch: {
+    '$route': 'setCollect'
   },
   methods: {
     getData (val) {
       let self = this
-      console.log(this.$route.path)
+      // console.log(this.$route.path)
       api.App_get(this.url + val).then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         self.contentData = res.data
-        console.log(self.contentData)
+        // console.log(self.contentData)
       })
     },
-    removeCollect () {},
+    // 根据获取的收藏id判断初始状态
+    setCollect () {
+      let collectIdArr = window.localStorage.getItem('collectIdArr')
+      console.log(this.id)
+      if (collectIdArr.indexOf(this.id) > 0) {
+        this.collect = true
+      } else {
+        this.collect = false
+      }
+    },
+    removeCollect () {
+      api.App_post(this.url + 'de_collect', {
+        accesstoken: this.accesstoken,
+        topic_id: this.id
+      }).then((res) => {
+        // console.log(res)
+      })
+    },
+    // 加入收藏
     addCollect () {
       let self = this
       api.App_post(this.url + 'collect', {
         accesstoken: self.accesstoken,
         topic_id: self.id
       }).then((res) => {
-        console.log(res)
+        // console.log(res)
       })
     }
   }

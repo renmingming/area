@@ -48,6 +48,7 @@
 
 <script>
 import api from '@/axios/index.js'
+import {mapActions} from 'vuex'
 export default {
   name: 'my',
   data () {
@@ -95,7 +96,18 @@ export default {
         .then((res) => {
           self.userInfo = res.data
           // console.log(this.userInfo.collect_topics)
-          // for (let item of this.userInfo.collect_topics)
+          // 收藏数组
+          let collectIdArr = new Set()
+          for (let item of self.userInfo.collect_topics) {
+            // console.log(item.id)
+            // 将收藏的的id加入到数组中
+            collectIdArr.add(item.id)
+          }
+          // console.log(Array.from(collectIdArr))
+          // Array.from将set转换微数组
+          this.setcollectIdArr(Array.from(collectIdArr))
+          // this.$store.dispatch('setcollectIdArr', Array.from(collectIdArr))
+          // console.log(Object.prototype.toString.call(this.$store.state.collectIdArr))
         })
     },
     cleanQuit () {
@@ -105,7 +117,8 @@ export default {
       this.$router.push({
         'path': '/login'
       })
-    }
+    },
+    ...mapActions(['setcollectIdArr'])
   }
 }
 </script>
