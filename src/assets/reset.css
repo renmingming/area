@@ -1,0 +1,33 @@
+a,p,ul,li,dd,dt,dl,span,i,h1,h2,h3,h4,h5,h6,p,div{
+  text-decoration: none;
+  box-sizing: border-box;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  padding:0;
+  margin:0;
+  list-style-type: none;
+  font-weight: normal;
+}
+a,p,ul,li,dd,dt,dl,i,h1,h2,h3,h4,h5,h6,p,div{
+  // font-family:"-apple-system","SF UI Text","Arial","PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif","'Microsoft Yahei Light'";
+}
+
+*, *:after, *:before { box-sizing: border-box; }
+.clearfix:before, .clearfix:after {display: table;  content: ''; }
+.clearfix:after { clear: both; }
+
+
+
+input,textarea{border:1px solid #D1D1D1;background:#fff;height:30px;line-height:30px;padding:0 10px;box-sizing:border-box;outline: none;}
+a:hover{
+  text-decoration: none;
+}
+
+*{
+  font-family:"font_en","-apple-system","SF UI Text","Arial","PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif","'Microsoft Yahei Light'" ;
+  padding:0;
+  word-wrap: break-word;
+  word-wrap:break-word;
+}
+
+img{display:block;max-width:100%;}

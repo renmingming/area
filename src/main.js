@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
+import './assets/reset.css'
 
 import store from '@/store/index'
 import filters from '@/filters/index.js'

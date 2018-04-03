@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="main-content" v-if="userInfo">
   <!-- 个人信息 -->
     <mu-appbar>
       <mu-avatar slot="left" :src="userInfo.avatar_url" :size="60"></mu-avatar>
@@ -15,7 +15,7 @@
     <!-- 最近话题 -->
     <mu-list-item title="最近话题" toggleNested :open="false">
       <mu-icon slot="left" value="drafts"/>
-      <mu-badge :content="userInfo.recent_topics.length" slot="after"/>
+      <mu-badge :content="userInfo.recent_topics.length.toString()" slot="after"/>
       <mu-list-item v-for="item in userInfo.recent_topics" :to="{name: 'content', params: {id: item.id}}" :key="item.id" slot="nested" :title="item.title">
         <mu-avatar slot="left" :src="item.author.avatar_url" :size="40"></mu-avatar>
         <span class="time">{{item.last_reply_at | time_ago}}</span>
@@ -24,7 +24,7 @@
     <!-- 最近回复 -->
     <mu-list-item title="最近回复" toggleNested :open="false">
       <mu-icon slot="left" value="drafts"/>
-      <mu-badge :content="userInfo.recent_replies.length" slot="after"/>
+      <mu-badge :content="userInfo.recent_replies.length.toString()" slot="after"/>
       <mu-list-item v-for="item in userInfo.recent_replies" :to="{name: 'content', params: {id: item.id}}" :key="item.id" slot="nested" :title="item.title">
         <mu-avatar slot="left" :src="item.author.avatar_url" :size="40"></mu-avatar>
         <span class="time">{{item.last_reply_at | time_ago}}</span>
@@ -33,7 +33,7 @@
     <!-- 收藏列表 -->
     <mu-list-item title="收藏列表" toggleNested :open="false">
       <mu-icon slot="left" value="drafts"/>
-      <mu-badge :content="userInfo.collect_topics.length" slot="after"/>
+      <mu-badge :content="userInfo.collect_topics.length.toString()" slot="after"/>
       <mu-list-item v-for="item in userInfo.collect_topics" :to="{name: 'content', params: {id: item.id}}" :key="item.id" slot="nested" :title="item.title">
         <mu-avatar slot="left" :src="item.author.avatar_url" :size="40"></mu-avatar>
         <span class="time">{{item.last_reply_at | time_ago}}</span>

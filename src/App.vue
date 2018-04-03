@@ -26,6 +26,9 @@ body{
   overflow-y:auto;
   font-size:16px;
 }
+img{
+  max-width:100%;
+}
 .main-content{
   position:relative;
   padding-top:64px;
